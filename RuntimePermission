@@ -1,0 +1,343 @@
+public class Utils {
+
+
+    private final static boolean isLogEnabled = true;
+    public static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 123;
+    public static final int MY_PERMISSIONS_REQUEST_CAMERA = 1;
+
+    /**
+     * Validate network availability.
+     *
+     * @param context get systemService of context
+     * @return true network available, false network not available
+     */
+    public static boolean isNetworkAvailable(Context context) {
+        boolean outcome = false;
+
+        if (context != null) {
+            final ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+            final NetworkInfo[] networkInfos = cm.getAllNetworkInfo();
+
+            for (NetworkInfo tempNetworkInfo : networkInfos) {
+
+                if (tempNetworkInfo != null && tempNetworkInfo.isConnected()) {
+                    outcome = true;
+                    break;
+                }
+            }
+        }
+        return outcome;
+    }
+
+
+    public static boolean checkPermission(final Context context) {
+        int currentAPIVersion = Build.VERSION.SDK_INT;
+        if (currentAPIVersion >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                if (ActivityCompat.shouldShowRequestPermissionRationale((Activity) context, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                    AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);
+                    alertBuilder.setCancelable(true);
+                    alertBuilder.setTitle("Permission necessary");
+                    alertBuilder.setMessage("External storage permission is necessary");
+                    alertBuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface dialog, int which) {
+                            ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+                        }
+                    });
+                    AlertDialog alert = alertBuilder.create();
+                    alert.show();
+                } else {
+                    ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+                }
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            return true;
+        }
+
+    }
+
+
+    public static boolean checkCameraPermission(final Context context) {
+        int currentAPIVersion = Build.VERSION.SDK_INT;
+        if (currentAPIVersion >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                if (ActivityCompat.shouldShowRequestPermissionRationale((Activity) context, Manifest.permission.CAMERA)) {
+                    AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);
+                    alertBuilder.setCancelable(true);
+                    alertBuilder.setTitle("Permission necessary");
+                    alertBuilder.setMessage("Camera permission is necessary");
+                    alertBuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface dialog, int which) {
+                            ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.CAMERA}, MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+                        }
+                    });
+                    AlertDialog alert = alertBuilder.create();
+                    alert.show();
+                } else {
+                    ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.CAMERA}, MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+                }
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            return true;
+        }
+
+    }
+    public static boolean checkAudioPermission(final Context context) {
+        int currentAPIVersion = Build.VERSION.SDK_INT;
+        if (currentAPIVersion >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(context, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+                if (ActivityCompat.shouldShowRequestPermissionRationale((Activity) context, Manifest.permission.RECORD_AUDIO)) {
+                    AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);
+                    alertBuilder.setCancelable(true);
+                    alertBuilder.setTitle("Permission necessary");
+                    alertBuilder.setMessage("Record Audio permission is necessary");
+                    alertBuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface dialog, int which) {
+                            ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.RECORD_AUDIO}, MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+                        }
+                    });
+                    AlertDialog alert = alertBuilder.create();
+                    alert.show();
+                } else {
+                    ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.RECORD_AUDIO}, MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+                }
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            return true;
+        }
+
+    }
+
+
+    public static boolean checkMediaPermission(final Context context) {
+        int currentAPIVersion = Build.VERSION.SDK_INT;
+        if (currentAPIVersion >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                if (ActivityCompat.shouldShowRequestPermissionRationale((Activity) context, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                    AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);
+                    alertBuilder.setCancelable(true);
+                    alertBuilder.setTitle("Permission necessary");
+                    alertBuilder.setMessage("Document permission is necessary");
+                    alertBuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface dialog, int which) {
+                            ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+                        }
+                    });
+                    AlertDialog alert = alertBuilder.create();
+                    alert.show();
+                } else {
+                    ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+                }
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            return true;
+        }
+
+    }
+
+
+    public static boolean checkReadPhoneStatePermission(final Context context) {
+        int currentAPIVersion = Build.VERSION.SDK_INT;
+        if (currentAPIVersion >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+                if (ActivityCompat.shouldShowRequestPermissionRationale((Activity) context, Manifest.permission.READ_PHONE_STATE)) {
+                    AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);
+                    alertBuilder.setCancelable(true);
+                    alertBuilder.setTitle("Permission necessary");
+                    alertBuilder.setMessage("Read phone State permission is necessary");
+                    alertBuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface dialog, int which) {
+                            ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.READ_PHONE_STATE}, MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+                        }
+                    });
+                    AlertDialog alert = alertBuilder.create();
+                    alert.show();
+                } else {
+                    ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.READ_PHONE_STATE}, MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+                }
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            return true;
+        }
+
+    }
+
+
+    /**
+     * Dismiss progress bar dialog.
+     *
+     * @param classes getting class name,message
+     * @param message display message.
+     */
+    public static void displayLog(Class classes, String message) {
+        if (isLogEnabled) {
+            Log.i(classes.getClass().getSimpleName(), message);
+        }
+    }
+    /**
+     * Display Alert Dialog box.
+     *
+     * @param context         for context
+     * @param title           set alert dialog box title.
+     * @param message         set alert dialog box massage.
+     * @param positiveMessage
+     * @param isNegative
+     * @param negativeMessage
+     * @param dialogListener
+     */
+    public static void displayAlertDialog(Context context, String title, String message, String positiveMessage, boolean isNegative, String negativeMessage, final DialogListener dialogListener) {
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialogStyle);
+        if (!TextUtils.isEmpty(title)) {
+            builder.setTitle(title);
+        }
+        if (!TextUtils.isEmpty(message)) {
+            builder.setMessage(message);
+        }
+        if (!TextUtils.isEmpty(positiveMessage)) {
+            builder.setPositiveButton(positiveMessage, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    if (dialogListener != null) {
+                        dialogListener.handleOk();
+                    }
+                }
+            });
+        }
+        if (isNegative) {
+            if (!TextUtils.isEmpty(negativeMessage)) {
+                builder.setNegativeButton(negativeMessage, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (dialogListener != null) {
+                            dialogListener.handleCancel();
+                        }
+                    }
+                });
+            }
+        }
+        builder.show();
+    }
+
+    public static void hideSoftKeyboard(View view, Context activity) {
+        InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    public static void showSoftKeyboard(View view, Context activity) {
+        InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+    }
+
+    public static String firstLatterCapital(String name) {
+        StringBuilder sb = new StringBuilder(name);
+        sb.setCharAt(0, Character.toUpperCase(sb.charAt(0)));
+        return sb.toString();
+    }
+
+    public static void setButtontTextCustomFontRegular(Button button, AssetManager assets) {
+        Typeface typeface = Typeface.createFromAsset(assets, "fonts/Exo-Regular.otf");
+        button.setTypeface(typeface);
+    }
+
+    public static String getDevicesId(Context con) {
+        TelephonyManager telephonyManager = (TelephonyManager) con.getSystemService(Context.TELEPHONY_SERVICE);
+        String IMEI = telephonyManager.getDeviceId();
+        return IMEI;
+    }
+
+    public static String convertDate(String str) {
+        SimpleDateFormat sf = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
+        String newDateDeliveryString = null;
+        try {
+            newDateDeliveryString = sf.format(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse(str));
+            Log.e("newDateDeliveryString", "" + newDateDeliveryString);
+        } catch (Exception e) {
+            Log.e("dateEx", "" + e);
+        }
+        return newDateDeliveryString;
+    }
+
+    public static String extractVideoId(String youTubeUrl) {
+        String pattern = "(?<=youtu.be/|watch\\?v=|/videos/|embed\\/)[^#\\&\\?]*";
+        Pattern compiledPattern = Pattern.compile(pattern);
+        Matcher matcher = compiledPattern.matcher(youTubeUrl);
+        if (matcher.find()) {
+            return matcher.group();
+        } else {
+            return "error";
+        }
+    }
+
+    public static String changeDateFormat(String str) {
+        String new_str = "";
+        try {
+            SimpleDateFormat sf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+            new_str = sf.format(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse(str));
+        } catch (Exception e) {
+            Log.e("Ex_Date", "" + e);
+        }
+        return new_str;
+    }
+
+    public static String getPriceType(Context con, String priceTypeId) {
+        HashMap<String, String> spinnerMap_price = new HashMap<String, String>();
+        spinnerMap_price.put("0", " ---- ");
+        spinnerMap_price.put("1", "Wholesale Price");
+        spinnerMap_price.put("2", "Pending");
+        spinnerMap_price.put("3", "Retailer Price");
+        spinnerMap_price.put("4", "Dealer Price");
+        spinnerMap_price.put("5", "Wholesale + Retailer Price");
+        spinnerMap_price.put("6", "Manufacture Price");
+        spinnerMap_price.put("7", "Agent Price");
+        String pricetype = spinnerMap_price.get(priceTypeId);
+        return pricetype;
+    }
+
+    public static void trimCache(Context context) {
+        try {
+            File dir = context.getCacheDir();
+            if (dir != null && dir.isDirectory()) {
+                deleteDir(dir);
+
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+    }
+
+    public static boolean deleteDir(File dir) {
+        if (dir != null && dir.isDirectory()) {
+            String[] children = dir.list();
+            for (int i = 0; i < children.length; i++) {
+                boolean success = deleteDir(new File(dir, children[i]));
+                if (!success) {
+                    return false;
+                }
+            }
+        }
+        return dir.delete();
+    }
+
+}
